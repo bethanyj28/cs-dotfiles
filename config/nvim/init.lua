@@ -256,9 +256,9 @@ require("nvim-tree").setup({
 })
 
 -- mappings
-map <C-n> :NvimTreeToggle<CR>
-map <leader>m :NvimTreeFocus<CR>
-map <leader>f :NvimTreeFindFiler<CR>
+vim.keymap.set('n', '<C-n>', ':NvimTreeToggle<CR>')
+vim.keymap.set('n', '<leader>m', ':NvimTreeFocus<CR>')
+vim.keymap.set('n', '<leader>m', ':NvimTreeFindFile<CR>')
 
 -- [[ Configure Treesitter ]]
 -- See `:help nvim-treesitter`
