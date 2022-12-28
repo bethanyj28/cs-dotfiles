@@ -106,11 +106,15 @@ vim.api.nvim_create_autocmd('BufWritePost', {
 -- [[ Setting options ]]
 -- See `:help vim.o`
 
+-- Raise a dialog when quitting without saving
+vim.o.confirm = true
+
 -- Set highlight on search
 vim.o.hlsearch = false
 
 -- Make line numbers default
 vim.wo.number = true
+vim.wo.relativenumber = true
 
 -- Enable mouse mode
 vim.o.mouse = 'a'
@@ -151,8 +155,14 @@ vim.keymap.set({ 'n', 'v' }, '<Space>', '<Nop>', { silent = true })
 vim.keymap.set('n', 'k', "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
 vim.keymap.set('n', 'j', "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
 
+-- Easier window switching
+vim.keymap.set('n', '<C-H>', '<C-W>h', {silent = true, noremap = true})
+vim.keymap.set('n', '<C-J>', '<C-W>j', {silent = true, noremap = true})
+vim.keymap.set('n', '<C-K>', '<C-W>k', {silent = true, noremap = true})
+vim.keymap.set('n', '<C-L>', '<C-W>l', {silent = true, noremap = true})
+
 -- use jk as ESC in insert mode
-vim.keymap.set('i', '<ESC>', 'jk', {silent = true})
+vim.keymap.set('i', 'jk', 'ESC', {silent = true, noremap = true})
 
 -- [[ Highlight on yank ]]
 -- See `:help vim.highlight.on_yank()`
