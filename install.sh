@@ -38,7 +38,6 @@ echo "finished installing neovim\ninstalling oh my zsh..."
 sh -c "$(wget https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh -O -)"
 echo "finished installing oh my zsh\nreplacing default config files..."
 
-ln -s $(pwd)/vimrc $HOME/.vimrc
 rm -f $HOME/.zshrc
 ln -s $(pwd)/zshrc $HOME/.zshrc
 ln -s $(pwd)/bash_profile $HOME/.bash_profile
@@ -48,9 +47,7 @@ mkdir $HOME/.config
 ln -s "$(pwd)/config/nvim" "$HOME/.config/nvim"
 
 echo "finished replacing default config files\ninstalling vim plugins..."
-nvim +'PlugInstall --sync' +qa
-
-vim -Es -u $HOME/.vimrc -c "PlugInstall | qa"
+nvim +'PackerInstall' +qa
 
 echo "done!"
 
