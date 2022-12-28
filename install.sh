@@ -27,10 +27,9 @@ echo "finished installing packages\ninstalling neovim..."
 sudo modprobe fuse
 sudo groupadd fuse
 sudo usermod -a -G fuse "$(whoami)"
-wget https://github.com/neovim/neovim/releases/latest/download/nvim.appimage
-wget https://github.com/github/copilot.vim/releases/download/neovim-nightlies/appimage.zip
-unzip appimage.zip
-sudo chmod u+x nvim.appimage
+curl -LO https://github.com/neovim/neovim/releases/latest/download/nvim.appimage
+chmod u+x nvim.appimage
+./nvim.appimage
 sudo mv nvim.appimage /usr/local/bin/nvim
 
 echo "finished installing neovim\ninstalling oh my zsh..."
