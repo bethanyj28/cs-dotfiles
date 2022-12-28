@@ -63,8 +63,8 @@ require('packer').startup(function(use) -- Package manager
     requires = {
       'nvim-tree/nvim-web-devicons', -- optional, for file icons
     },
-    tag = 'nightly' -- optional, updated every week. (see issue #1193)
   }
+
   -- Fuzzy Finder (files, lsp, etc)
   use { 'nvim-telescope/telescope.nvim', branch = '0.1.x', requires = { 'nvim-lua/plenary.nvim' } }
 
@@ -264,6 +264,8 @@ require("nvim-tree").setup({
     dotfiles = true,
   },
 })
+
+require("nvim-web-devicons").setup()
 
 -- mappings
 vim.keymap.set('n', '<C-n>', ':NvimTreeToggle<CR>')
