@@ -45,7 +45,7 @@ mkdir $HOME/.config
 ln -s "$(pwd)/config/nvim" "$HOME/.config/nvim"
 
 echo "finished replacing default config files\ninstalling vim plugins..."
-nvim --headless +PackerInstall +qa
+nvim +PackerInstall +qa
 
 echo "done!"
 
