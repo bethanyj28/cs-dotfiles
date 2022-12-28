@@ -41,5 +41,6 @@ mkdir $HOME/.config
 ln -s "$(pwd)/config/nvim" "$HOME/.config/nvim"
 
 nvim --headless -c 'autocmd User PackerComplete quitall' -c 'PackerSync'
+nvim --headless -c 'autocmd User PackerComplete quitall' -c 'PackerSync' # just in case: https://github.com/wbthomason/packer.nvim/issues/502#issuecomment-1135331998
 
 sudo chsh -s "$(which zsh)" "$(whoami)"
