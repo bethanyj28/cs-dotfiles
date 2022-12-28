@@ -162,7 +162,7 @@ vim.keymap.set('n', '<C-K>', '<C-W>k', {silent = true, noremap = true})
 vim.keymap.set('n', '<C-L>', '<C-W>l', {silent = true, noremap = true})
 
 -- use jk as ESC in insert mode
-vim.keymap.set('i', 'jk', 'ESC', {silent = true, noremap = true})
+vim.keymap.set('i', 'jk', '<ESC>', {silent = true, noremap = true})
 
 -- [[ Highlight on yank ]]
 -- See `:help vim.highlight.on_yank()`
