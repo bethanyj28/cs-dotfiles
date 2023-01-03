@@ -58,12 +58,7 @@ require('packer').startup(function(use) -- Package manager
   use 'ray-x/guihua.lua'
 
   -- File tree
-  use {
-    'nvim-tree/nvim-tree.lua',
-    requires = {
-      'nvim-tree/nvim-web-devicons', -- optional, for file icons
-    },
-  }
+  use 'nvim-tree/nvim-tree.lua'
 
   -- Fuzzy Finder (files, lsp, etc)
   use { 'nvim-telescope/telescope.nvim', branch = '0.1.x', requires = { 'nvim-lua/plenary.nvim' } }
@@ -245,6 +240,31 @@ vim.keymap.set('n', '<leader>sd', require('telescope.builtin').diagnostics, { de
 -- disable netrw at the very start of your init.lua (strongly advised)
 vim.g.loaded_netrw = 1
 vim.g.loaded_netrwPlugin = 1
+vim.g.nvim_tree_icons = {
+  git = {
+    unstaged = "○",
+    staged = "●",
+    unmerged = "⊜",
+    renamed = "⊙",
+    untracked = "⊕",
+    deleted = "⊗",
+    ignored = "⊘"
+  },
+  folder = {
+    arrow_open = "▾",
+    arrow_closed = "▸",
+    default = "▸",
+    open =  "▾",
+    empty = "▸",
+    empty_open = "▾",
+    symlink = "▸",
+    symlink_open = "▾",
+  },
+  lsp = {
+    warning = "⊗",
+    error = "⊗",
+  }
+}
 
 -- empty setup using defaults
 require("nvim-tree").setup({
@@ -259,13 +279,20 @@ require("nvim-tree").setup({
   },
   renderer = {
     group_empty = true,
+    icons = {
+      show = {
+        file = false,
+        folder = false,
+        folder_arrow = true,
+        git = true,
+        modified = true,
+      },
+    },
   },
   filters = {
     dotfiles = true,
   },
 })
-
-require("nvim-web-devicons").setup()
 
 -- mappings
 vim.keymap.set('n', '<C-n>', ':NvimTreeToggle<CR>')
