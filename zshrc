@@ -72,6 +72,7 @@ ZSH_THEME="refined"
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(git)
+plugins+=(zsh-vi-mode)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -122,3 +123,6 @@ export GOPROXY=https://nobody:${GITHUB_TOKEN}@goproxy.githubapp.com/mod,https://
 export GOPRIVATE=
 export GONOPROXY=
 export GONOSUMDB='github.com/github/*'
+
+# zsh-vi opts
+ZVM_VI_INSERT_ESCAPE_BINDKEY=jk

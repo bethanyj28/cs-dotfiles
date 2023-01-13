@@ -31,6 +31,9 @@ sudo mv nvim.appimage /usr/local/bin/nvim
 
 # install oh my zsh
 sh -c "$(wget https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh -O -)"
+# install zsh vi mode
+git clone https://github.com/jeffreytse/zsh-vi-mode \
+  $ZSH_CUSTOM/plugins/zsh-vi-mode
 
 rm -f $HOME/.zshrc
 ln -s $(pwd)/zshrc $HOME/.zshrc
