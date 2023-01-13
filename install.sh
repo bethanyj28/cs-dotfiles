@@ -37,6 +37,8 @@ ln -s $(pwd)/zshrc $HOME/.zshrc
 ln -s $(pwd)/bash_profile $HOME/.bash_profile
 
 # install zsh vi mode
+source $HOME/.zshrc
+echo $ZSH_CUSTOM
 git clone https://github.com/jeffreytse/zsh-vi-mode \
   $ZSH_CUSTOM/plugins/zsh-vi-mode
 
