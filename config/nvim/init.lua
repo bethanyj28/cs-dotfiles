@@ -77,6 +77,10 @@ require('packer').startup(function(use) -- Package manager
   end
 end)
 
+vim.g.loaded_netrw = 1
+vim.g.loaded_netrwPlugin = 1
+
+
 -- When we are bootstrapping a configuration, it doesn't
 -- make sense to execute the rest of the init.lua.
 --
@@ -129,14 +133,13 @@ vim.o.updatetime = 250
 vim.wo.signcolumn = 'yes'
 
 -- Set colorscheme
-vim.o.termguicolors = true
 vim.cmd [[colorscheme gruvbox]]
 
 -- Set completeopt to have a better completion experience
 vim.o.completeopt = 'menuone,noselect'
 
 -- [[ Basic Keymaps ]]
--- Set <space> as the leader key
+-- Set , as the leader key
 -- See `:help mapleader`
 --  NOTE: Must happen before plugins are required (otherwise wrong leader will be used)
 vim.g.mapleader = ','
@@ -236,36 +239,6 @@ vim.keymap.set('n', '<leader>sw', require('telescope.builtin').grep_string, { de
 vim.keymap.set('n', '<leader>sg', require('telescope.builtin').live_grep, { desc = '[S]earch by [G]rep' })
 vim.keymap.set('n', '<leader>sd', require('telescope.builtin').diagnostics, { desc = '[S]earch [D]iagnostics' })
 
--- [[ Configure nvim-tree ]]
--- disable netrw at the very start of your init.lua (strongly advised)
-vim.g.loaded_netrw = 1
-vim.g.loaded_netrwPlugin = 1
-vim.g.nvim_tree_icons = {
-  git = {
-    unstaged = "○",
-    staged = "●",
-    unmerged = "⊜",
-    renamed = "⊙",
-    untracked = "⊕",
-    deleted = "⊗",
-    ignored = "⊘"
-  },
-  folder = {
-    arrow_open = "▾",
-    arrow_closed = "▸",
-    default = "▸",
-    open =  "▾",
-    empty = "▸",
-    empty_open = "▾",
-    symlink = "▸",
-    symlink_open = "▾",
-  },
-  lsp = {
-    warning = "⊗",
-    error = "⊗",
-  }
-}
-
 -- empty setup using defaults
 require("nvim-tree").setup({
   sort_by = "case_sensitive",
@@ -293,6 +266,33 @@ require("nvim-tree").setup({
     dotfiles = true,
   },
 })
+
+-- [[ Configure nvim-tree ]]
+vim.g.nvim_tree_icons = {
+  git = {
+    unstaged = "○",
+    staged = "●",
+    unmerged = "⊜",
+    renamed = "⊙",
+    untracked = "⊕",
+    deleted = "⊗",
+    ignored = "⊘"
+  },
+  folder = {
+    arrow_open = "▾",
+    arrow_closed = "▸",
+    default = "▸",
+    open =  "▾",
+    empty = "▸",
+    empty_open = "▾",
+    symlink = "▸",
+    symlink_open = "▾",
+  },
+  lsp = {
+    warning = "⊗",
+    error = "⊗",
+  }
+}
 
 -- mappings
 vim.keymap.set('n', '<C-n>', ':NvimTreeToggle<CR>')
