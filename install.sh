@@ -46,7 +46,5 @@ nvim --headless -c 'autocmd User PackerComplete quitall' -c 'PackerSync' # just 
 sudo chsh -s "$(which zsh)" "$(whoami)"
 
 # install zsh vi mode
-source $HOME/.zshrc
-echo $ZSH_CUSTOM
 git clone https://github.com/jeffreytse/zsh-vi-mode \
-  $ZSH_CUSTOM/plugins/zsh-vi-mode
+  /home/codespace/.oh-my-zsh/custom/plugins/zsh-vi-mode
