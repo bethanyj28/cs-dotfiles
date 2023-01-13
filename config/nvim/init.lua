@@ -109,7 +109,7 @@ vim.api.nvim_create_autocmd('BufWritePost', {
 vim.o.confirm = true
 
 -- Set highlight on search
-vim.o.hlsearch = false
+vim.o.hlsearch = true
 
 -- Make line numbers default
 vim.wo.number = true
@@ -212,8 +212,11 @@ require('telescope').setup {
   defaults = {
     mappings = {
       i = {
-        ['<C-u>'] = false,
-        ['<C-d>'] = false,
+        ['<C-j>'] = require('telescope.actions').move_selection_next,
+        ['<C-k>'] = require('telescope.actions').move_selection_previous,
+      },
+      n = {
+        ['jk'] = 'close',
       },
     },
   },
@@ -228,7 +231,7 @@ vim.keymap.set('n', '<leader><space>', require('telescope.builtin').buffers, { d
 vim.keymap.set('n', '<leader>/', function()
   -- You can pass additional configuration to telescope to change theme, layout, etc.
   require('telescope.builtin').current_buffer_fuzzy_find(require('telescope.themes').get_dropdown {
-    winblend = 10,
+    winblend = 0,
     previewer = false,
   })
 end, { desc = '[/] Fuzzily search in current buffer]' })
@@ -256,9 +259,27 @@ require("nvim-tree").setup({
       show = {
         file = false,
         folder = false,
-        folder_arrow = true,
-        git = true,
-        modified = true,
+      },
+      glyphs = {
+        git = {
+          unstaged = "○",
+          staged = "●",
+          unmerged = "⊜",
+          renamed = "⊙",
+          untracked = "⊕",
+          deleted = "⊗",
+          ignored = "⊘"
+        },
+        folder = {
+          arrow_open = "▾",
+          arrow_closed = "▸",
+          default = "▸",
+          open =  "▾",
+          empty = "▸",
+          empty_open = "▾",
+          symlink = "▸",
+          symlink_open = "▾",
+        },
       },
     },
   },
@@ -266,33 +287,6 @@ require("nvim-tree").setup({
     dotfiles = true,
   },
 })
-
--- [[ Configure nvim-tree ]]
-vim.g.nvim_tree_icons = {
-  git = {
-    unstaged = "○",
-    staged = "●",
-    unmerged = "⊜",
-    renamed = "⊙",
-    untracked = "⊕",
-    deleted = "⊗",
-    ignored = "⊘"
-  },
-  folder = {
-    arrow_open = "▾",
-    arrow_closed = "▸",
-    default = "▸",
-    open =  "▾",
-    empty = "▸",
-    empty_open = "▾",
-    symlink = "▸",
-    symlink_open = "▾",
-  },
-  lsp = {
-    warning = "⊗",
-    error = "⊗",
-  }
-}
 
 -- mappings
 vim.keymap.set('n', '<C-n>', ':NvimTreeToggle<CR>')
@@ -303,7 +297,7 @@ vim.keymap.set('n', '<leader>m', ':NvimTreeFindFile<CR>')
 -- See `:help nvim-treesitter`
 require('nvim-treesitter.configs').setup {
   -- Add languages to be installed here that you want installed for treesitter
-  ensure_installed = { 'c', 'cpp', 'go', 'lua', 'python', 'rust', 'typescript', 'hcl', 'javascript', 'ruby', 'dockerfile', 'help' },
+  ensure_installed = { 'c', 'cpp', 'go', 'lua', 'vim', 'python', 'rust', 'typescript', 'hcl', 'javascript', 'ruby', 'dockerfile', 'help', 'c_sharp' },
 
   highlight = { enable = true },
   indent = { enable = true, disable = { 'python' } },
@@ -397,7 +391,7 @@ local on_attach = function(_, bufnr)
 
   -- See `:help K` for why this keymap
   nmap('K', vim.lsp.buf.hover, 'Hover Documentation')
-  nmap('<C-k>', vim.lsp.buf.signature_help, 'Signature Documentation')
+  nmap('<C-p>', vim.lsp.buf.signature_help, 'Signature Documentation')
 
   -- Lesser used LSP functionality
   nmap('gD', vim.lsp.buf.declaration, '[G]oto [D]eclaration')
