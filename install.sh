@@ -47,4 +47,4 @@ sudo chsh -s "$(which zsh)" "$(whoami)"
 
 # install zsh vi mode
 git clone https://github.com/jeffreytse/zsh-vi-mode \
-  /home/codespace/.oh-my-zsh/custom/plugins/zsh-vi-mode
+  $HOME/.oh-my-zsh/custom/plugins/zsh-vi-mode
