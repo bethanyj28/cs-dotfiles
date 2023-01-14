@@ -162,6 +162,9 @@ vim.keymap.set('n', '<C-L>', '<C-W>l', {silent = true, noremap = true})
 -- use jk as ESC in insert mode
 vim.keymap.set('i', 'jk', '<ESC>', {silent = true, noremap = true})
 
+-- pair programming mode
+vim.keymap.set('n', 'pp', ':set relativenumber!<CR>')
+
 -- [[ Highlight on yank ]]
 -- See `:help vim.highlight.on_yank()`
 local highlight_group = vim.api.nvim_create_augroup('YankHighlight', { clear = true })

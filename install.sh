@@ -29,6 +29,10 @@ curl -LO https://github.com/neovim/neovim/releases/latest/download/nvim.appimage
 chmod u+x nvim.appimage
 sudo mv nvim.appimage /usr/local/bin/nvim
 
+# install copilot
+git clone https://github.com/github/copilot.vim.git \
+  ./config/nvim/pack/github/start/copilot.vim
+
 # install oh my zsh
 sh -c "$(wget https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh -O -)"
 
