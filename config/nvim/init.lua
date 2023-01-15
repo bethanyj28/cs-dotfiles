@@ -154,10 +154,10 @@ vim.keymap.set('n', 'k', "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = tr
 vim.keymap.set('n', 'j', "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
 
 -- Easier window switching
-vim.keymap.set('n', '<C-H>', '<C-W>h', {silent = true, noremap = true})
-vim.keymap.set('n', '<C-J>', '<C-W>j', {silent = true, noremap = true})
-vim.keymap.set('n', '<C-K>', '<C-W>k', {silent = true, noremap = true})
-vim.keymap.set('n', '<C-L>', '<C-W>l', {silent = true, noremap = true})
+vim.keymap.set('n', '<C-h>', '<C-W>h', {silent = true, noremap = true})
+vim.keymap.set('n', '<C-j>', '<C-W>j', {silent = true, noremap = true})
+vim.keymap.set('n', '<C-k>', '<C-W>k', {silent = true, noremap = true})
+vim.keymap.set('n', '<C-l>', '<C-W>l', {silent = true, noremap = true})
 
 -- use jk as ESC in insert mode
 vim.keymap.set('i', 'jk', '<ESC>', {silent = true, noremap = true})
@@ -478,7 +478,7 @@ cmp.setup {
       behavior = cmp.ConfirmBehavior.Replace,
       select = true,
     },
-    ['<Tab>'] = cmp.mapping(function(fallback)
+    ['<C-j>'] = cmp.mapping(function(fallback)
       if cmp.visible() then
         cmp.select_next_item()
       elseif luasnip.expand_or_jumpable() then
@@ -487,7 +487,7 @@ cmp.setup {
         fallback()
       end
     end, { 'i', 's' }),
-    ['<S-Tab>'] = cmp.mapping(function(fallback)
+    ['<C-k>'] = cmp.mapping(function(fallback)
       if cmp.visible() then
         cmp.select_prev_item()
       elseif luasnip.jumpable(-1) then
