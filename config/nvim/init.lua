@@ -417,11 +417,26 @@ end
 --  the `settings` field of the server config. You must look up that documentation yourself.
 local servers = {
   -- clangd = {},
-  -- gopls = {},
   -- pyright = {},
   -- rust_analyzer = {},
   -- tsserver = {},
 
+  gopls = {
+    analyses = {
+			unusedparams = true,
+		},
+		staticcheck = true,
+		linksInHover = false,
+		codelenses = {
+			generate = true,
+			gc_details = true,
+			regenerate_cgo = true,
+			tidy = true,
+			upgrade_depdendency = true,
+			vendor = true,
+		},
+		usePlaceholders = true,
+  },
   sumneko_lua = {
     Lua = {
       workspace = { checkThirdParty = false },
