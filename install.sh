@@ -30,6 +30,7 @@ chmod u+x nvim.appimage
 sudo mv nvim.appimage /usr/local/bin/nvim
 
 # install copilot
+nvm use stable
 git clone https://github.com/github/copilot.vim.git \
   ./config/nvim/pack/github/start/copilot.vim
 
