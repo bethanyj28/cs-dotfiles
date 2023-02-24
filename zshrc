@@ -123,5 +123,8 @@ export GOPRIVATE=
 export GONOPROXY=
 export GONOSUMDB='github.com/github/*'
 
+# make it not ugly
+export LS_COLORS="$LS_COLORS:ow=1;34:tw=1;34:"
+
 # zsh-vi opts
 ZVM_VI_INSERT_ESCAPE_BINDKEY=jk

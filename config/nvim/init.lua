@@ -165,6 +165,10 @@ vim.keymap.set('i', 'jk', '<ESC>', {silent = true, noremap = true})
 -- pair programming mode
 vim.keymap.set('n', 'pp', ':set relativenumber!<CR>')
 
+-- easier copy/paste from clipboard
+vim.keymap.set('n', '<Leader>y', '"+y', {silent = true, noremap = true})
+vim.keymap.set('n', '<Leader>p', '"+p', {silent = true, noremap = true})
+
 -- [[ Highlight on yank ]]
 -- See `:help vim.highlight.on_yank()`
 local highlight_group = vim.api.nvim_create_augroup('YankHighlight', { clear = true })
@@ -265,6 +269,7 @@ require("nvim-tree").setup({
         folder = false,
       },
       glyphs = {
+        symlink = "➚",
         git = {
           unstaged = "○",
           staged = "●",
@@ -410,6 +415,43 @@ local on_attach = function(_, bufnr)
   end, { desc = 'Format current buffer with LSP' })
 end
 
+-- Go goodies
+require('go').setup({
+    -- notify: use nvim-notify
+    notify = false,
+    -- auto commands
+    auto_format = true,
+    auto_lint = true,
+    -- linters: revive, errcheck, staticcheck, golangci-lint
+    linter = 'revive',
+    -- linter_flags: e.g., {revive = {'-config', '/path/to/config.yml'}}
+    linter_flags = {},
+    -- lint_prompt_style: qf (quickfix), vt (virtual text)
+    lint_prompt_style = 'qf',
+    -- formatter: goimports, gofmt, gofumpt, lsp
+    formatter = 'goimports',
+    -- maintain cursor position after formatting loaded buffer
+    maintain_cursor_pos = false,
+    -- test flags: -count=1 will disable cache
+    test_flags = {'-v'},
+    test_timeout = '30s',
+    test_env = {},
+    -- show test result with popup window
+    test_popup = true,
+    test_popup_auto_leave = false,
+    test_popup_width = 80,
+    test_popup_height = 10,
+    -- test open
+    test_open_cmd = 'edit',
+    -- struct tags
+    tags_name = 'json',
+    tags_options = {'json=omitempty'},
+    tags_transform = 'snakecase',
+    tags_flags = {'-skip-unexported'},
+    -- quick type
+    quick_type_flags = {'--just-types'},
+})
+
 -- Enable the following language servers
 --  Feel free to add/remove any LSPs that you want here. They will automatically be installed.
 --
@@ -418,9 +460,15 @@ end
 local servers = {
   -- clangd = {},
   -- pyright = {},
-  -- rust_analyzer = {},
   -- tsserver = {},
-
+  omnisharp = {
+  	dotnet = {
+  		enable = true,
+  		path = '/workspaces/actions/actions-dotnet/.dotnet/dotnet',
+  	},
+  	useGlobalMono = 'always',
+  },
+  rust_analyzer = {},
   gopls = {
     analyses = {
 			unusedparams = true,
@@ -437,17 +485,33 @@ local servers = {
 		},
 		usePlaceholders = true,
   },
-  sumneko_lua = {
+  lua_ls = {
     Lua = {
-      workspace = { checkThirdParty = false },
-      telemetry = { enable = false },
+      runtime = {
+        -- Tell the language server which version of Lua you're using (most likely LuaJIT in the case of Neovim)
+        version = 'LuaJIT',
+      },
+      diagnostics = {
+        -- Get the language server to recognize the `vim` global
+        globals = {'vim'},
+      },
+      workspace = {
+        -- Make the server aware of Neovim runtime files
+        library = vim.api.nvim_get_runtime_file("", true),
+        checkThirdParty = false,
+      },
+      -- Do not send telemetry data containing a randomized but unique identifier
+      telemetry = {
+        enable = false,
+      },
     },
   },
 }
 
 -- Setup neovim lua configuration
 require('neodev').setup()
---
+
+-- Setup 
 -- nvim-cmp supports additional completion capabilities, so broadcast that to servers
 local capabilities = vim.lsp.protocol.make_client_capabilities()
 capabilities = require('cmp_nvim_lsp').default_capabilities(capabilities)
