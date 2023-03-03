@@ -462,49 +462,61 @@ local servers = {
   -- pyright = {},
   -- tsserver = {},
   omnisharp = {
-  	dotnet = {
-  		enable = true,
-  		path = '/workspaces/actions/actions-dotnet/.dotnet/dotnet',
-  	},
-  	useGlobalMono = 'always',
+    settings = {
+  	  dotnet = {
+  	  	enable = true,
+  	  	path = '/workspaces/actions/actions-dotnet/.dotnet/dotnet',
+  	  },
+  	  useGlobalMono = 'always',
+    },
   },
   rust_analyzer = {},
   gopls = {
-    analyses = {
-			unusedparams = true,
-		},
-		staticcheck = true,
-		linksInHover = false,
-		codelenses = {
-			generate = true,
-			gc_details = true,
-			regenerate_cgo = true,
-			tidy = true,
-			upgrade_depdendency = true,
-			vendor = true,
-		},
-		usePlaceholders = true,
+    settings = {
+      analyses = {
+		  	unusedparams = true,
+		  },
+		  staticcheck = true,
+		  linksInHover = false,
+		  codelenses = {
+		  	generate = true,
+		  	gc_details = true,
+		  	regenerate_cgo = true,
+		  	tidy = true,
+		  	upgrade_depdendency = true,
+		  	vendor = true,
+		  },
+		  usePlaceholders = true,
+    },
   },
   lua_ls = {
-    Lua = {
-      runtime = {
-        -- Tell the language server which version of Lua you're using (most likely LuaJIT in the case of Neovim)
-        version = 'LuaJIT',
-      },
-      diagnostics = {
-        -- Get the language server to recognize the `vim` global
-        globals = {'vim'},
-      },
-      workspace = {
-        -- Make the server aware of Neovim runtime files
-        library = vim.api.nvim_get_runtime_file("", true),
-        checkThirdParty = false,
-      },
-      -- Do not send telemetry data containing a randomized but unique identifier
-      telemetry = {
-        enable = false,
+    settings = {
+      Lua = {
+        runtime = {
+          -- Tell the language server which version of Lua you're using (most likely LuaJIT in the case of Neovim)
+          version = 'LuaJIT',
+        },
+        diagnostics = {
+          -- Get the language server to recognize the `vim` global
+          globals = {'vim'},
+        },
+        workspace = {
+          -- Make the server aware of Neovim runtime files
+          library = vim.api.nvim_get_runtime_file("", true),
+          checkThirdParty = false,
+        },
+        -- Do not send telemetry data containing a randomized but unique identifier
+        telemetry = {
+          enable = false,
+        },
       },
     },
+  },
+  sorbet = {
+    settings = {
+      enabled = true,
+    },
+    cmd = { "bin/srb", "tc", "--lsp" },
   },
 }
 
@@ -531,7 +543,8 @@ mason_lspconfig.setup_handlers {
     require('lspconfig')[server_name].setup {
       capabilities = capabilities,
       on_attach = on_attach,
-      settings = servers[server_name],
+      settings = servers[server_name].settings,
+      cmd = servers[server_name].cmd,
     }
   end,
 }
